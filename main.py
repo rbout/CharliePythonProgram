@@ -1,14 +1,30 @@
-from gtts import gTTS
 from playsound import playsound
+from text_to_speech import gtts_custom
 import requests
+import speech_recognition as sr
 import sys
 
 filename = 'output.mp3'
+r = sr.Recognizer()
+intent = ''
 
-if len(sys.argv) == 2:
-    res = requests.post("https://charlierobotserver.herokuapp.com/talk", json={"text": sys.argv[1]}).text
-    tts = gTTS(res, lang='en')
-    tts.save(filename)
+with sr.Microphone() as source:
+    print('Ask Charlie a question:')
+    audio = r.listen(source)
+
+try:
+    intent = r.recognize_google(audio)
+    print('Your Intent: {}'.format(intent))
+except:
+    print('Sorry, could not understand your intent...')
+    quit()
+
+try:
+    res = requests.post('https://charlierobotserver.herokuapp.com/talk', json={'text': intent}).text
+    print('Charlie Response: {}'.format(res))
+    gtts_custom(res, filename)
     playsound(filename)
-else:
-    print("Need question in the command line for the time being")
+except requests.exceptions.TooManyRedirects:
+    print('[Text-To-Speech] Request Error: Bad URL')
+except requests.exceptions.RequestException as e:
+    raise SystemExit('[Text-To-Speech] {}'.format(e))
