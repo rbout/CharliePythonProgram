@@ -1,6 +1,26 @@
 # Google Application Credentials
 charlie_robot_speech.json
 
+# Snowboy
+snowboy/lib/libsnowboy-detect.a
+snowboy/snowboy-detect-swig.cc
+snowboy/snowboydetect.py
+snowboy/Snowboy.pm
+snowboy/.DS_Store
+snowboy/*.dylib
+snowboy/*.pyc
+snowboy/*.o
+snowboy/*.so
+snowboy/*.swp
+snowboy/*.swo
+snowboy/build
+snowboy/node_modules
+snowboy/lib/node/binding
+snowboy/lib/node/index.js
+snowboy/dist
+snowboy/**/snowboy.egg-info
+snowboy/.idea
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
