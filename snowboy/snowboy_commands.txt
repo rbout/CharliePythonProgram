@@ -1,0 +1,16 @@
+""" In order to work on macOS, I needed to run:
+    brew install swig portaudio sox
+    pip3 install pyaudio virtualenv
+
+    virtualenv is used for creating new model
+    files for custom hotwords (.pmdl)
+"""
+
+cd snowboy/swig/Python3 && make all     # Create Makefile for snowboy (Python3)
+cd snowboy/examples/Python3/            # Navigate into Python3 example directory
+pip3 install -r requirements.txt        # Install package requirements
+virtualenv -p python3 venv/snowboy      # Create virtual environment
+source venv/snowboy/bin/activate        # Activate snowboy virtual environment
+
+# From: snowboy/examples/Python3/
+python3 listen.py hey_charlie.pmdl      # Run snowboy with the .pmdl file
